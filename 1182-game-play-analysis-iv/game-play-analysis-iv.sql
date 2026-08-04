@@ -1,0 +1,2 @@
+# Write your MySQL query statement below
+select round(count(a.player_id)/(select count(distinct b.player_id) from Activity b),2) as fraction from Activity a where (a.player_id,date_sub(a.event_date,interval 1 day)) in (select c.player_id,min(c.event_date) from Activity c group by c.player_id);

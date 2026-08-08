@@ -32,11 +32,31 @@ public:
         //     ans.push_back(group);
         // }
         // return ans;
-        //2nd sol
-        unordered_map<string, vector<string>> mp;
-        for(string s:strs) {
-            string key = s;
-            sort(key.begin(), key.end());
+        //2nd sol o(nklogk)
+        // unordered_map<string, vector<string>> mp;
+        // for(string s:strs) {
+        //     string key = s;
+        //     sort(key.begin(), key.end());
+        //     mp[key].push_back(s);
+        // }
+        // vector<vector<string>> ans;
+        // for(auto i: mp) {
+        //     ans.push_back(i.second);
+        // }
+        // return ans;
+        //3rd sol o(nk)
+                unordered_map<string, vector<string>> mp;
+
+        for(string s : strs) {
+            int count[26] = {0};
+            for(char c : s)
+                count[c - 'a']++;
+
+            string key;
+            for(int i = 0; i < 26; i++) {
+                key += to_string(count[i]);
+                key += '#';
+            }
             mp[key].push_back(s);
         }
         vector<vector<string>> ans;
@@ -44,6 +64,7 @@ public:
             ans.push_back(i.second);
         }
         return ans;
+
 
     }
 };

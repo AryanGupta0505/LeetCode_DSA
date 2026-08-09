@@ -16,13 +16,23 @@ public:
     }
     vector<int> dailyTemperatures(vector<int>& temperatures) {
         int n=temperatures.size();
-        vector<int> ans(n);
-        ans=nge(temperatures,n);
-        for(int i=0;i<n;i++){
-            if(ans[i]==-1) ans[i]=0;
-            else{
-                ans[i]-=i;
+        vector<int> ans(n,0);
+        // ans=nge(temperatures,n);
+        // for(int i=0;i<n;i++){
+        //     if(ans[i]==-1) ans[i]=0;
+        //     else{
+        //         ans[i]-=i;
+        //     }
+        // }
+        stack<int>s;
+        s.push(-1);
+        for(int i=n-1;i>=0;i--){
+            int curr=temperatures[i];
+            while(s.top()!=-1&&temperatures[s.top()]<=curr){
+                s.pop();
             }
+            if(s.top()!=-1) ans[i]=s.top()-i;
+            s.push(i);
         }
         return ans;
     }
